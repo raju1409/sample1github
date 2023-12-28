@@ -1,0 +1,14 @@
+// .devcontainer/devcontainer.json
+{
+    "name": "Java Codespace",
+    "build": {
+      "dockerfile": "Dockerfile"
+    },
+    "settings": {
+      "terminal.integrated.shell.linux": null
+    },
+    "extensions": [
+      "vscjava.vscode-java-pack"
+    ]
+  }
+  
