@@ -17,7 +17,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests((requests) -> requests
-                .antMatchers("api/v*/registration/**").permitAll()
+                .antMatchers("/api/v*/registration/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin((form) -> form
@@ -29,5 +29,19 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    
+    @Bean
+    public UserDetailsService userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withDefaultPasswordEncoder()
+            .username("user")
+            .password("password")
+            .roles("USER")
+            .build());
+        manager.createUser(User.withDefaultPasswordEncoder()
+            .username("admin")
+            .password("admin")
+            .roles("ADMIN")
+            .build());
+        return manager;
+    }
 }
