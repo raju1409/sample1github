@@ -5,10 +5,13 @@
 
 package com.pack.sample1.registration;
 
+import lombok.AllArgsConstructor;
 
-class registrationService {
 
-    String register(RegistrationRequest request) {
+@AllArgsConstructor
+public class RegistrationService {
+
+    public String register(RegistrationRequest request) {
 
         return "works";
     }
