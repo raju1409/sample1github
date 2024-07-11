@@ -1,30 +1,36 @@
 package com.pack.sample1.appuser;
-
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
-
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class AppUserService implements UserDetailsService{
+public class AppUserService implements UserDetailsService {
 
-    private final static String USER_NOT_FOUND_MSG = 
-    "user with email %s not found";
+    private final static String USER_NOT_FOUND_MSG =
+            "user with email %s not found";
 
     private final AppUserRepository appUserRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
+    // public AppUserService(AppUserRepository appUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    //     this.appUserRepository = appUserRepository;
+    //     this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    // }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email)
+            throws UsernameNotFoundException {
         return appUserRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(
+                                String.format(USER_NOT_FOUND_MSG, email)));
     }
-
-    
 
 }

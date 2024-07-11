@@ -1,75 +1,60 @@
 package com.pack.sample1.appuser;
 
-
-import java.util.Collection;
-import java.util.Collections;
-
-import javax.annotation.processing.Generated;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RestController;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+// import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-
+import java.util.Collection;
+import java.util.Collections;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
- 
-public class AppUser implements UserDetails{
+public class AppUser implements UserDetails {
 
-    @Id
+
     @SequenceGenerator(
-        name= "student_sequence",
-        sequenceName= "student_sequence",
-        allocationSize=1
+            name = "student_sequence",
+            sequenceName = "student_sequence",
+            allocationSize = 1
     )
+    @Id
     @GeneratedValue(
-        strategy= GenerationType.SEQUENCE,
-        generator= "student_sequence"
+            strategy = GenerationType.SEQUENCE,
+            generator = "student_sequence"
     )
     private Long id;
-    private String name;
-    private String username;
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
-    private Boolean locked;
-    private Boolean enabled;
+    private Boolean locked = false;
+    private Boolean enabled = false;
 
-
-
-    public AppUser(AppUserRole appUserRole, String email, Boolean enabled, Boolean locked, String name, String password, String username) {
-        this.appUserRole = appUserRole;
+    public AppUser(String firstName,
+                   String lastName,
+                   String email,
+                   String password,
+                   AppUserRole appUserRole) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.enabled = enabled;
-        this.locked = locked;
-        this.name = name;
         this.password = password;
-        this.username = username;
+        this.appUserRole = appUserRole;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(appUserRole.name());
-        
+        SimpleGrantedAuthority authority =
+                new SimpleGrantedAuthority(appUserRole.name());
         return Collections.singletonList(authority);
     }
 
@@ -80,7 +65,15 @@ public class AppUser implements UserDetails{
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     @Override
@@ -100,15 +93,6 @@ public class AppUser implements UserDetails{
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return enabled;
     }
-
-
-
-    
-
-
-
-    
-
 }

@@ -5,9 +5,11 @@
 
 package com.pack.sample1.registration;
 
+import org.springframework.stereotype.Service;
+
 import lombok.AllArgsConstructor;
 
-
+@Service
 @AllArgsConstructor
 public class RegistrationService {
 

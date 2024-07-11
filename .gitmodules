@@ -1,0 +1,3 @@
+[submodule "newclonedrepo"]
+	path = newclonedrepo
+	url = https://github.com/amigoscode/login-registration-backend
