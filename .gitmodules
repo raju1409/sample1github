@@ -1,3 +1,6 @@
 [submodule "newclonedrepo"]
 	path = newclonedrepo
 	url = https://github.com/amigoscode/login-registration-backend
+[submodule "User-Login-Registration-With-Email-Verification-Backend"]
+	path = User-Login-Registration-With-Email-Verification-Backend
+	url = https://github.com/BHIMAVARAPU-MANOJ-KUMAR/User-Login-Registration-With-Email-Verification-Backend
